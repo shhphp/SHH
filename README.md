@@ -250,16 +250,16 @@ Autotags only apply when the *direct parent* is correct.
 
 Available autotags:
 
-| Autotag       | Parents       | Arg | Output  |
-| :------------ | :------------ | :-- | :------ | 
-| link          | head          | yes |`<link rel='stylesheet' type='text/css' href='arg' />` |
-| js, script    | head, body    | yes | `<script type='text/javascript' src='arg'></script>` |
-| css, style    | head          | no  | `<style type='text/css'></style>` |
-| keywords      | head          | yes | `<meta name="keywords" content="arg" />` |
-| description, descr | head     | yes | `<meta name="description" content="arg" />` |
-| robots        | head          | yes | `<meta name="robots" content="arg" />` |
-| copyright     | head          | yes | `<meta name="copyright" content="arg" />` |
-| author        | head          | yes | `<meta name="author" content="arg" />` |
+| Autotag       | Parents       | Output  |
+| :------------ | :------------ | :------ | 
+| link          | head          | `<link rel='stylesheet' type='text/css' href='arg' />` |
+| js, script    | head, body    | `<script type='text/javascript' src='arg'></script>` |
+| css, style    | head          | `<style type='text/css'></style>` |
+| keywords      | head          | `<meta name="keywords" content="arg" />` |
+| description, descr | head     | `<meta name="description" content="arg" />` |
+| robots        | head          | `<meta name="robots" content="arg" />` |
+| copyright     | head          | `<meta name="copyright" content="arg" />` |
+| author        | head          | `<meta name="author" content="arg" />` |
 
 
 > **Note:** To deactivate *autotags*, use the `!!autotag` [directive](#directives).
