@@ -18,6 +18,7 @@ class Environment
     public static $compiler;
     protected static $parser; 
     protected static $settings = array();
+    protected static $raw = false;
 
     /**
      * Constructor.
@@ -68,11 +69,13 @@ class Environment
      * @param   string  $file   a template name or shh source string
      * @param   array   $data   an array of parameters in form of:
      *                          array('varName' => 'data');
+     * @param   bool    $raw    set to true if source code is passed instead of a file
      *
      * @return string   the rendered template
      */
-    public static function render($file, $data = null)
+    public static function render($file, $data = null, $raw = false)
     {
+        self::$raw = $raw;
         $__raw = self::getOutput($file);
         unset($file);
 
@@ -105,24 +108,26 @@ class Environment
 
             } else if( self::$settings['cache'] ){
                 if( !$html_output = \SHH\CacheController::getCache( $file ) ){
-                    $html_output = self::$compiler->compile($file);
+                    $html_output = self::$compiler->compile($file, self::$raw);
                     \SHH\CacheController::writeCache( $file, $html_output );
                 } 
                 return $html_output;
             } 
         }
-        return self::$compiler->compile( $file );
+        return self::$compiler->compile( $file, self::$raw );
     }
 
     /**
      * Compile a file or a source string.
      *
      * @param   string  $file   a template name or a source string
+     * @param   bool    $raw    set to true if source code is passed instead of a file
      *
      * @return  string          the compiled output string
      */
-    public static function compile($file)
+    public static function compile($file, $raw = false)
     {
+        self::$raw = $raw;
         return self::getOutput($file);
     }
 }
