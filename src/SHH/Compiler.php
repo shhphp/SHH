@@ -81,7 +81,7 @@ class Compiler
 				return $input;
 			} 
 		} else {
-			if( preg_match('/\S+\.[a-z]+$/i', $file) ){
+			if( preg_match('/^\S+\.[a-z]+$/i', $file) ){
 				echo "<br><b>SHH warning</b>: file <b>$file</b> could not be found.";
 			} else {
 				if( preg_match("/^\s*<[\s\S]+>\s*$/", $file) ){
