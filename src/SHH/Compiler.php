@@ -230,7 +230,7 @@ class Compiler
 	      );
 	    }, 'script', array('head', 'body') );
 
-	    self::$parser->autotag('keys', function($arg){
+	    self::$parser->autotag('keywords', function($arg){
 			  return array(
 			    'name'=>'keywords',
 			    'content'=>$arg
