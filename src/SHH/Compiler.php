@@ -77,8 +77,8 @@ class Compiler
     self::$file = null;
 
     if( is_file($file) ){
+			if( self::isHtml($input = file_get_contents($file)) ) return $input;
 			self::$file = $file;
-			if( $input = self::isHtml(file_get_contents($file)) ) return $input;
 		} else {
 			if( self::isHtml($file) ) return $file;
 			if( !$raw && preg_match('/^\S+\.[a-z]+$/i', $file) ){
