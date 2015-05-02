@@ -35,7 +35,7 @@ class Compiler
      */
     public static function interpolation($regex, $callback)
     {
-        self::$parser->interpolation($regex, $callback);
+       self::$parser->interpolation($regex, $callback);
     }
 
     /**
@@ -43,7 +43,7 @@ class Compiler
      */
     public static function filter($key, $open = null, $close = null, $callback = null)
     {
-        self::$parser->filter($key, $open, $close, $callback);
+       self::$parser->filter($key, $open, $close, $callback);
     }
 
     /**
@@ -51,7 +51,7 @@ class Compiler
      */
     public static function autotag($key, $element, $callback, $parent = null)
     {
-        self::$parser->autotag($key, $element, $callback, $parent);
+       self::$parser->autotag($key, $element, $callback, $parent);
     }
 
     /**
@@ -59,35 +59,40 @@ class Compiler
      */
     public static function directive($key, $callback = null)
     {
-        self::$parser->directive($key, $callback);
+       self::$parser->directive($key, $callback);
     }
 
 	/**
 	 * Compile a file or a source string.
 	 *
 	 * @param 	string 	$file 	source string or file name
+	 * @param 	bool 		$raw 		set to true if source code is passed instead of a file
 	 *
 	 * @return 	string 	the compiled output string
    */
-	public static function compile($file)
+	public static function compile($file, $raw = false)
 	{	
     self::initParser();
     $parser = clone self::$parser;
-
     self::$file = null;
-		if( is_file($file) ){
-			self::$file = $file;
-			if( preg_match("/^\s*<[\s\S]+>\s*$/", $input = file_get_contents($file)) ){
-				return $input;
-			} 
-		} else {
-			if( preg_match('/^\S+\.[a-z]+$/i', $file) ){
-				echo "<br><b>SHH warning</b>: file <b>$file</b> could not be found.";
+
+    if( $raw ){
+    	$input = $file;
+    } else {
+			if( is_file($file) ){
+				self::$file = $file;
+				if( preg_match("/^\s*<[\s\S]+>\s*$/", $input = file_get_contents($file)) ){
+					return $input;
+				} 
 			} else {
-				if( preg_match("/^\s*<[\s\S]+>\s*$/", $file) ){
-					return $file;
+				if( preg_match('/^\S+\.[a-z]+$/i', $file) ){
+					echo "<br><b>SHH warning</b>: file <b>$file</b> could not be found.";
+				} else {
+					if( preg_match("/^\s*<[\s\S]+>\s*$/", $file) ){
+						return $file;
+					}
+					$input = $file;
 				}
-				$input = $file;
 			}
 		}
 
