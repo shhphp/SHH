@@ -1,4 +1,4 @@
-</br>
+<a id="top"></a>
 
 #**SHH** <a id="shh"></a>
 
@@ -796,7 +796,7 @@ For the full copyright and license information, please view the LICENSE file tha
 Don't know how to get started? Found a bug? Just wanna say hi? Think it's awesome or even wanna get involved? Then [drop a line](mailto:info@domizai.ch)!
 
 
-[back to top](#shh)
+[back to top](#top)
 
 ---
 Zurich, Mai 02, 2015
