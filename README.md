@@ -4,9 +4,6 @@
 
 SHH (Shorthand HTML) is HTML simplified.
 
-
----
-
 <img src="http://fritzmoritz.ch/shh/img/deer_small.png" width="158" />
 
 ## Table of Contents <a id="content"></a>
@@ -44,8 +41,6 @@ SHH (Shorthand HTML) is HTML simplified.
 * [Need Help?](#help)
 
 
----
-
 ## Introduction <a id="intro"></a>
 
 SHH is basically an oversimplified version of XML. Its focus, however lies on writing HTML. SHH is a lot shorter, more readable and fun to work with.
@@ -69,8 +64,6 @@ It's implemented for **PHP 5.3** and is currently in **open beta**. Latest versi
 
 > A **live demo** will be available soon.
 
-
----
 ## Syntax <a id="syntax"></a>
 
 If you already know other templating languages such as Haml or Jade, then you're *almost* ready to get started.
@@ -97,8 +90,6 @@ compiles to:
 </html>
 ```
 
-
----
 ### Elements <a id="tags"></a>
 
 	div 
@@ -106,7 +97,6 @@ compiles to:
 expands to `<div></div>`
 
 
----
 ### Attributes <a id="attr"></a>
 
 	attr=value
@@ -137,7 +127,6 @@ and compiles to `<div class="cls1 cls2"></div>`
 > **Note:** Attributes have to be defined on the same line as the tag, otherwise it would create a new element, which by default is a *div*.
 
 
----
 ### Text Content <a id="text"></a>
 
 A string can be enclosed within `'` and `"` quotes.
@@ -152,7 +141,6 @@ A string is also created when the rest of a line doesn't match any identifiers.
 	div.cls Single Line Content
 
 
----
 ### Filters <a id="filters"></a>
 
 A *filter* is a shorthand element which contains code such as css or javascript. They are basically code blocks and used to visually differ code from normal text content. 
@@ -182,7 +170,6 @@ Available filters:
 You might be confused why they're called *filters*. That's because they are also able to modify the content, but in most cases that's not really necessary. More on [extending filters](#efilter).
 
 
----
 ### Enclosures <a id="enclosures"></a>
 
 You can use `(` and `)` parentheses as enclosures. 
@@ -205,7 +192,7 @@ will output:
 
 Using enclosures is good for readability, especially on larger documents. 
 
----
+
 ### Tail <a id="tail"></a>
 
 The `>` character will treat all following elements as children regardless of their indentation. 
@@ -223,7 +210,6 @@ becomes:
 	</html>
 
 
----
 ### Comments <a id="comments"></a>
 
 
@@ -242,7 +228,6 @@ Single and multiline comments are silent and will not be rendered.
 > **Note:** Conditional comments are not implemented yet.
 
 
----
 ### Autotags <a id="autotags"></a>
 
 Autotags are acronyms for elements which usually have one or more attributes. Autotags are great because they handle all the attributes you don't need and want to think about.
@@ -277,7 +262,6 @@ Available autotags:
 More on [extending autotags](#eautotags).
 
 
----
 ### Embedding PHP <a id="embedphp"></a>
 
 You can embed php code like this:
@@ -295,7 +279,6 @@ and compiles to:
 In fact, you're free to embed regular php tags everywhere in the document. Just make sure to close them.
 
 
----
 ### Shorthand PHP <a id="shortphp"></a>
 
 Most of the time, you simply want to print out the value of a variable. We can express the previous example in a much simpler way.
@@ -322,7 +305,6 @@ It's also possible to use <a href="https://php.net/manual/de/language.types.stri
 > More on [adding data](#data) and [extending string interpolations](#einterpolation).
 
 
----
 ### Node Reference <a id="reference"></a>
 
 For redundancy reduction, SHH provides node anchors to store *tags*, *attributes* and *text content*. 
@@ -363,7 +345,6 @@ You are also allowed to pass enclosures.
 But you are *not allowed* to nest a reference inside the same anchor `&a(*a)`
 
 
----
 ### Directives <a id="directives"></a>
 
 SHH comes with a few directives you should be aware of. They strongly influence how the input will be processed and rendered. 
@@ -383,7 +364,7 @@ Available directives:
 * [tabsize](#stabsize)
 * [use](#suse)
 
----
+
 #### !doctype <a id="sdoctype"></a>
 
 	!doctype declaration(optional)
@@ -409,7 +390,6 @@ Available doctypes:
 | mobile       | `html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.2//EN" "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd"`
 
 
----
 #### !xml <a id="sxml"></a>
 
 	!xml version encoding standalone (all optional)
@@ -425,7 +405,6 @@ compiles to:
 The order of the arguments doesn't matter.
 
 
----
 #### !html <a id="shtml"></a>
 
 The *html* directive tells the compiler that you're actually writing html and results in treating non-html-tags as  [text content](#text).
@@ -440,13 +419,11 @@ will compile to:
 	<div>Hello Friend.</div>
 
 
----
 #### !autotag <a id="sautotag"></a>
 
 [Autotags](#autotags) are activated by default, because we assume, we mostly want to write HTML. 
 
 
----
 #### !tabsize <a id="stabsize"></a>
 
 	!tabsize int
@@ -457,7 +434,6 @@ This will also be applied to the compiled output.
 > **Note:** If you're using a different setting in your Code-Editor, it's recommended that you apply it with the matching tab size.
 
 
----
 #### !use <a id="suse"></a>
 
 	!use file
@@ -482,13 +458,11 @@ and results in:
 > **Note:**  Activated directives in the parent file won't apply to included files.
 
 
----
 ### Escaping <a id="escaping"></a>
 
 Use the backslash `\` character for escaping. Escaped characters will be treated as plain text.
 
 
----
 ### Code Mixing <a id="mixing"></a>
 
 You are allowed to mix plain html with SHH. However, this is not recommended. 
@@ -501,15 +475,13 @@ This would work:
 	  </div>
 
 
----
-
 <img src="http://fritzmoritz.ch/shh/img/buck_small.png" width="108"/>
 
 ## Installation <a id="installation"></a>
  
 Simply download this repository and drop the 'SHH' folder somewhere on your server and you should be good to go.
 
----
+
 ## API <a id="api"></a>
 
 > Full online documentation of the API is available soon.
@@ -525,7 +497,6 @@ echo SHH\Compiler::compile('templates/index.shh');
 > **Info:** By the way, you can use the SHH render() method to dump normal HTML or PHP scripts as well (make sure there are no open php tags in your script).
 
 
----
 ### Configurations <a id="conf"></a>
 
 If we want to add or change some settings, we have to use the *SHH\Environment* class.
@@ -551,7 +522,7 @@ Available options:
 
 > The settings are reused through the entire application, even if you make a new instance of *SHH\Environment* or *SHH\Compiler*.
 
----
+
 ### Passing Data <a id="data"></a>
 
 As seen above, we used the *SHH\Compiler* class which itself doesn't do much except compiling your source code. To actually output data, we need the render() method.
@@ -581,7 +552,6 @@ It's also possible to pass objects because we're evaluating raw PHP here:
 	div $bill->getMovies()
 
 
----
 ## Extending SHH <a id="extending"></a>
 
 SHH can easily be extended. All method are accessed through the *compiler* instance:
@@ -600,7 +570,6 @@ Overview:
 * [Directives](#edirectives)
 
 
----
 ### Filters <a id="efilter"></a>
 
 *Filters* allows you to alter a string with optionally wrapping it in a new element. 
@@ -654,7 +623,6 @@ $shh->compiler->filter(
 ```
 
 
----
 ### Autotags<a id="eautotags"></a>
 
 The *autotag* method has four arguments:
@@ -683,7 +651,6 @@ which compiles to:
 	<script type='application/dart' src='app.dart'></script>
 
 
----
 ### String Interpolations <a id="einterpolation"></a>
 
 String interpolations basically just modifies a string. Let's say, we don't allow any bad words on our website.and want to replace with with good words
@@ -714,7 +681,6 @@ outputs:
 	<div>He is such a gentlemen and a handsome guy.</div>
 
 
----
 ### Directives <a id="edirectives"></a>
 
 This subject requires a deeper understanding of how the SHH Compiler works and is only briefly covered here.
@@ -789,9 +755,6 @@ $shh->compiler->directive('myDirective'
 ```
 
 
----
-
-
 <img src="http://fritzmoritz.ch/shh/img/antelope_small.png" width="144"/>
 
 ## Core Principle <a id="intention"></a>
@@ -802,7 +765,7 @@ SHH is not intended to be used as an embedded-complex template engine such as Sm
 
 This is why SHH doesn't provide any kind of logic expressions. Use a selector-based templating library instead. Like [this one](https://github.com/Kroc/DOMTemplate). Further Reading: [Making the Ugly Elegant: Templating With DOM](http://camendesign.com/code/dom_templating).
 
----
+
 ## Coding Standards <a id="standards"></a>
 
 We recommend you to follow these few references: 
@@ -813,7 +776,6 @@ We recommend you to follow these few references:
 * Use [enclosures](#enclosures) on larger documents for readability.
 
 
----
 ## Additional Resources <a id="resources"></a>
 
 >- TextMate/Sublime Text bundle available soon.
@@ -822,7 +784,6 @@ We recommend you to follow these few references:
 Want to contribute?
 
 
----
 ## License <a id="license"></a>
 
 MIT
@@ -830,14 +791,12 @@ MIT
 For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
 
 
----
 ## Need Help? <a id="help"></a>
 
 Don't know how to get started? Found a bug? Just wanna say hi? Think it's awesome or even wanna get involved? Then [drop a line](mailto:info@domizai.ch)!
 
 
----
 [back to top](#shh)
 
 ---
-<font size=2>Zurich, Mai 02, 2015</font>
+Zurich, Mai 02, 2015
