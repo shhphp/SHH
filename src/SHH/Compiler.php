@@ -76,23 +76,15 @@ class Compiler
     $parser = clone self::$parser;
     self::$file = null;
 
-    if( $raw ){
-    	$input = $file;
-    } else {
-			if( is_file($file) ){
-				self::$file = $file;
-				if( preg_match("/^\s*<[\s\S]+>\s*$/", $input = file_get_contents($file)) ){
-					return $input;
-				} 
+    if( is_file($file) ){
+			self::$file = $file;
+			if( $input = self::isHtml(file_get_contents($file)) ) return $input;
+		} else {
+			if( self::isHtml($file) ) return $file;
+			if( !$raw && preg_match('/^\S+\.[a-z]+$/i', $file) ){
+				echo "<br><b>SHH warning</b>: file <b>$file</b> could not be found.";
 			} else {
-				if( preg_match('/^\S+\.[a-z]+$/i', $file) ){
-					echo "<br><b>SHH warning</b>: file <b>$file</b> could not be found.";
-				} else {
-					if( preg_match("/^\s*<[\s\S]+>\s*$/", $file) ){
-						return $file;
-					}
-					$input = $file;
-				}
+				$input = $file;
 			}
 		}
 
@@ -112,6 +104,20 @@ class Compiler
 		$input = preg_replace('/<\?[a-z]*|\?>/i', '?', $input);
     $parser->parse( \SHH\Lexer::tokenize( $input ) ); 
     return \SHH\Dumper::dump($parser); 
+  }
+
+  /**
+	 * Check if input is HTML.
+	 *
+	 * @param 	string 	$input 	the input string to test
+	 *
+	 * @return 	string 	returns the input string match
+   */
+  protected static function isHtml($input)
+  {
+  	if( preg_match("/^\s*<[\s\S]+>\s*$/", $input) ){
+			return $input;
+		}
   }
 
   /**
