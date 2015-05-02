@@ -229,6 +229,41 @@ class Compiler
 	        'src' => $arg
 	      );
 	    }, 'script', array('head', 'body') );
+
+	    self::$parser->autotag('keys', function($arg){
+			  return array(
+			    'name'=>'keywords',
+			    'content'=>$arg
+			  );
+			}, 'meta', 'head');
+
+			self::$parser->autotag(array('description', 'descr'), function($arg){
+			  return array(
+			    'name'=>'description',
+			    'content'=>$arg
+			  );
+			}, 'meta', 'head');
+
+			self::$parser->autotag('robots', function($arg){
+			  return array(
+			    'name'=>'robots',
+			    'content'=>$arg
+			  );
+			}, 'meta', 'head');
+
+			self::$parser->autotag('copyright', function($arg){
+			  return array(
+			    'name'=>'copyright',
+			    'content'=>$arg
+			  );
+			}, 'meta', 'head');
+
+			self::$parser->autotag('author', function($arg){
+			  return array(
+			    'name'=>'author',
+			    'content'=>$arg
+			  );
+			}, 'meta', 'head');
   	}
   }
 }
