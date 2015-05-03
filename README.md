@@ -43,7 +43,7 @@ SHH (Shorthand HTML) is HTML simplified.
 
 ## Introduction <a id="intro"></a>
 
-SHH is basically an oversimplified version of XML. Its focus, however lies on writing HTML. SHH is a lot shorter, more readable and fun to work with.
+SHH is basically an oversimplified version of XML. However, its focus lies on writing HTML. SHH is a lot shorter, more readable and fun to work with.
 
 SHH is a whitespace significant markup language, means that the document structure is maintained by outline indentation. The default indentation size is 2 spaces.
 
