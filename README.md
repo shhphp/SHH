@@ -13,11 +13,11 @@ SHH (Shorthand HTML) is HTML simplified.
 	* [Elements](#tags)
 	* [Attributes](#attr)
 	* [Text Content](#text)
+	* [Autotags](#autotags)
 	* [Filters](#filters)
 	* [Enclosures](#enclosures)
 	* [Tail](#tail)
 	* [Comments](#comments)
-	* [Autotags](#autotags)
 	* [Embedding PHP](#embedphp)
 	* [Shorthand PHP](#shortphp)
 	* [Directives](#directives)
@@ -30,8 +30,8 @@ SHH (Shorthand HTML) is HTML simplified.
 	* [Configurations](#conf)
 	* [Passing Data](#data)
 * [Extending SHH](#extending)
-	* [Filters](#efilter)
 	* [Autotags](#eautotags)
+	* [Filters](#efilter)
 	* [String Interpolation](#einterpolation)
 	* [Directives](#edirectives)
 * [Core Principle](#intention)
@@ -60,9 +60,9 @@ Features:
 
 -
 
-It's implemented for **PHP 5.3** and is currently in **open beta**. Latest version is **1.0**.
+It's implemented for **PHP 5.3** and is currently in **open beta** (0.9.0).
 
-> A **live demo** will be available soon.
+> **<a href="http://apps.domizai.ch/shh/" target="_blank">Try it out here!</a>** (temporary site)
 
 ## Syntax <a id="syntax"></a>
 
@@ -136,14 +136,53 @@ A string can be enclosed within `'` and `"` quotes.
 	  Content
 	"
 
-A string is also created when the rest of a line doesn't match any identifiers.
+A string is also created when the rest of the line doesn't match any identifiers.
 
 	div.cls Single Line Content
 
 
+### Autotags <a id="autotags"></a>
+
+*Autotags* are shorthand elements. *Autotags* are great because they handle all the attributes you don't need and want to think about.
+
+	css
+
+becomes
+
+	<style type="text/css"></style>
+
+You also can pass an argument (they will look like attributes):
+
+	  link='styles.css'
+
+becomes:
+
+	  <link rel="stylesheet" type="text/css" href="styles.css" />
+
+Autotags only apply when the *direct parent* is correct.
+
+Available autotags:
+
+| Autotag       | Parents       | Output  |
+| :------------ | :------------ | :------ | 
+| link          | head          | `<link rel='stylesheet' type='text/css' href='arg' />` |
+| js, script    | head, body    | `<script type='text/javascript' src='arg'></script>` |
+| css, style    | head          | `<style type='text/css'></style>` |
+| keywords      | head          | `<meta name="keywords" content="arg" />` |
+| description, descr | head     | `<meta name="description" content="arg" />` |
+| robots        | head          | `<meta name="robots" content="arg" />` |
+| copyright     | head          | `<meta name="copyright" content="arg" />` |
+| author        | head          | `<meta name="author" content="arg" />` |
+
+
+> **Note:** To deactivate *autotags*, use the `!!autotag` [directive](#directives).
+
+More on [extending autotags](#eautotags).
+
+
 ### Filters <a id="filters"></a>
 
-A *filter* is a shorthand element which contains code such as css or javascript. They are basically code blocks and used to visually differ code from normal text content. 
+*Filters* are also shorthand elements. They are basically code blocks and used to visually differ code from normal text content.
 	
 	css%
 	  /* code */ 
@@ -228,45 +267,6 @@ Single and multiline comments are silent and will not be rendered.
 > **Note:** Conditional comments are not implemented yet.
 
 
-### Autotags <a id="autotags"></a>
-
-Autotags are acronyms for elements which usually have one or more attributes. Autotags are great because they handle all the attributes you don't need and want to think about.
-
-	css
-
-becomes
-
-	<style type="text/css"></style>
-
-On some you can pass an argument (they will look like attributes):
-
-	  link='styles.css'
-
-becomes:
-
-	  <link rel="stylesheet" type="text/css" href="styles.css" />
-
-Autotags only apply when the *direct parent* is correct.
-
-Available autotags:
-
-| Autotag       | Parents       | Output  |
-| :------------ | :------------ | :------ | 
-| link          | head          | `<link rel='stylesheet' type='text/css' href='arg' />` |
-| js, script    | head, body    | `<script type='text/javascript' src='arg'></script>` |
-| css, style    | head          | `<style type='text/css'></style>` |
-| keywords      | head          | `<meta name="keywords" content="arg" />` |
-| description, descr | head     | `<meta name="description" content="arg" />` |
-| robots        | head          | `<meta name="robots" content="arg" />` |
-| copyright     | head          | `<meta name="copyright" content="arg" />` |
-| author        | head          | `<meta name="author" content="arg" />` |
-
-
-> **Note:** To deactivate *autotags*, use the `!!autotag` [directive](#directives).
-
-More on [extending autotags](#eautotags).
-
-
 ### Embedding PHP <a id="embedphp"></a>
 
 You can embed php code like this:
@@ -299,7 +299,7 @@ You can parse variables within *double quotes*.
 	div "My name is $name"	
 
 
-It's also possible to use <a href="https://php.net/manual/de/language.types.string.php#language.types.string.parsing.complex" target="_blank">complex (curly) syntax</a>. Note that in SHH it's still possible to escape it.
+It's also possible to use <a href="https://php.net/manual/de/language.types.string.php#language.types.string.parsing.complex" target="_blank">complex (curly) syntax</a>. In SHH, it's still possible to escape it.
 
 	div "My name is {$name}"
 
@@ -384,8 +384,7 @@ Available doctypes:
 
 | Declaration  | Value       |
 | :----------- | :---------- |
-| html         | `html`      |
-| 5            | `html`      |
+| html, 5      | `html`      |
 | default      | `html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"` |
 | transitional | `html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"` |
 | strict       | `html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"` |
@@ -426,7 +425,7 @@ will compile to:
 
 #### !autotag <a id="sautotag"></a>
 
-[Autotags](#autotags) are activated by default, because we assume, we mostly want to write HTML. 
+[Autotags](#autotags) are activated by default, because we assume that we mostly want to write HTML. 
 
 
 #### !tabsize <a id="stabsize"></a>
@@ -436,7 +435,7 @@ will compile to:
 The *tabsize* directive sets the indentation level of the document. Default is 2.
 This will also be applied to the compiled output.
 
-> **Note:** If you're using a different setting in your Code-Editor, it's recommended that you apply it with the matching tab size.
+> **Note:** It's recommended that you use the same tab-size as in your Code-Editor.
 
 
 #### !use <a id="suse"></a>
@@ -552,7 +551,7 @@ This data can be now used as follows:
 	  Career:      $career 
 	"
 
-It's also possible to pass objects because we're evaluating raw PHP here:
+It's also possible to pass objects because we're evaluating pure PHP here:
 
 	div $bill->getMovies()
 
@@ -569,22 +568,53 @@ SHH\Compiler::method();
 
 Overview:
 
-* [Filters](#efilter)
 * [Autotags](#eautotags)
+* [Filters](#efilter)
 * [String Interpolation](#einterpolation)
 * [Directives](#edirectives)
 
 
+### Autotags<a id="eautotags"></a>
+
+
+An *[autotag](#autotags)* allows you to create a shorthand element with an optional argument.
+
+The *autotag* method has four parameters:
+
+* The name of the autotag, a string or an array.
+* A callback function which passes the autotag's argument as a string. Should return an associative array.
+* The name of the element it should create. If none is defined the name of the autotag will be used instead.
+* The direct parents. The autotag will not be restricted to a parent element if none are specified. 
+
+
+```php
+$shh->compiler->autotag('dart', function($arg){
+  return array(
+    'type'=> 'application/dart',
+    'src' => $arg
+  );
+}, 'script', array('head', 'body') );
+```
+
+and may be used like this:
+
+	dart='app.dart'
+
+which compiles to:
+
+	<script type='application/dart' src='app.dart'></script>
+
+
 ### Filters <a id="efilter"></a>
 
-*Filters* allows you to alter a string with optionally wrapping it in a new element. 
+A *filter* allows you to alter a string with optionally wrapping it in a new element. 
 
-The *filter* method has four arguments:
+The *filter* method has four parameters:
 
 * The name of the filter, a string or an array.
 * Html start-tag(s) to optionally wrap the content.
 * Html end-tag(s), optional.
-* An optional callback function which should return the modified string.
+* An optional callback function which passes the input string.
 The original string will be used if nothing is returned.
 
 SHH doesn't provide any markdown features by default. Therefore let's go ahead and add a filter. We will be using the [Parsedown](http://parsedown.org/) library for this example.
@@ -610,7 +640,7 @@ This can now be used like this:
 	  ## Is Super Easy
 	%
 
-and will produce:
+and produces:
 
 	<div>
 	  <h1>Extending Filters</h1>
@@ -618,8 +648,9 @@ and will produce:
 	</div>
 
 
-More commonly you might want to use something like this `coffe% alert "I Love Cappuccino" %`
+More commonly you might want to use something like this `coffe% ... %`
 
+simply:
 ```php
 $shh->compiler->filter(
   array('coffeescript', 'coffee', 'cs'), 
@@ -628,40 +659,21 @@ $shh->compiler->filter(
 ```
 
 
-### Autotags<a id="eautotags"></a>
-
-The *autotag* method has four arguments:
-
-* The name of the autotag, a string or an array.
-* A callback function which should return an associative array with the attributes.
-* The name of the element it should create. If none is defined the name of the autotag will be used instead.
-* The direct parents. If none are specified, the autotag will not be restricted to a parent element. 
-
-
-```php
-$shh->compiler->autotag('dart', function($arg){
-  return array(
-    'type'=> 'application/dart',
-    'src' => $arg
-  );
-}, 'script', array('head', 'body') );
-```
-
-and may be used like this:
-
-	dart='app.dart'
-
-which compiles to:
-
-	<script type='application/dart' src='app.dart'></script>
-
-
 ### String Interpolations <a id="einterpolation"></a>
 
-String interpolations basically just modifies a string. Let's say, we don't allow any bad words on our website.and want to replace with with good words
+String interpolations are generally used to evaluate variables inside a string. But basically they just modify a string. 
+
+The *interpolation* method has two parameters:
+
+* A regular expression.
+* Html start-tag(s) to optionally wrap the content.
+* Html end-tag(s), optional.
+* A callback function which passes an array of matched values.
+
+Let's say we don't allow any bad words in our string and want to replace them with good words.
 
 ```php
-# our list of bad words and their pendants.
+# our list of bad words and their counterparts.
 $badgood = array('bad'=>'handsome', 'jerk'=>'gentlemen');
 
 # extract bad words and build regex.
@@ -690,7 +702,7 @@ outputs:
 
 This subject requires a deeper understanding of how the SHH Compiler works and is only briefly covered here.
 
-In SHH a directive can either be preprocessed (before compilation) or parsed (after lexical analysis).
+In SHH, a directive can either be preprocessed (before compilation) or parsed (after lexical analysis).
 
 *Preprocessing* a directive gives you the change to alter the source code. *Parsing* it, makes it possible to inject a new stream of *tokens* into the current one.
 
@@ -698,15 +710,15 @@ In SHH a directive can either be preprocessed (before compilation) or parsed (af
 
 Remember the extension we did on [string interpolation](#einterpolation)? Let's do something similar but apply it to the entire document. We have to do this before compilation and therefore will be using the *preprocessor* method.
 
-The method has two arguments:
+The method has two parameters:
 
 * The name of the directive
 * A callback function which has two parameters:
 	* The unaltered source code.
-	* The directives arguments.
+	* The directive's arguments.
 
 
-All bad words will be transformed into nicer ones. So let's call out directive 'no_bad_words'.
+All bad words will be transformed into nicer ones. So let's call our directive 'no_bad_words'.
 
 ```php
 $shh->compiler->preprocessor('no_bad_words', 
@@ -733,7 +745,7 @@ So let's go ahead an use it!
 
 	!no_bad_words loser winner
 
-The first word is our new bad word which would get replaced by every second better sibling.
+The first word is our new bad word which will get replaced by every second 'better' sibling.
 
 I have to admit, this is a very unpractical and basic example. But it should give you an idea of how simple it is to use.
 
@@ -741,13 +753,13 @@ I have to admit, this is a very unpractical and basic example. But it should giv
 #### Parsing a Directive
 
 
-The *directive*method has two arguments:
+The *directive*method has two parameters:
 
 * The name of the directive
 * A callback function which optionally can return an array of *tokens*.
 The function has two parameters:
 	* An instance of the *parser object*.
-	* The directives arguments.
+	* The directive's arguments.
 
 	
 ```php
@@ -804,4 +816,4 @@ Don't know how to get started? Found a bug? Just wanna say hi? Think it's awesom
 [back to top](#top)
 
 ---
-Zurich, Mai 02, 2015
+Zurich, Mai 03, 2015
