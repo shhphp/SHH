@@ -131,7 +131,7 @@ class Identifier extends TokenParser
 	protected function addContent(Parser &$parser)
 	{
 		if( $parser->prevIs( array(new TokenParser\Php, new TokenParser\Identifier, new TokenParser\Escape, new TokenParser\SingleQuote, new TokenParser\DoubleQuote) )){
-			$string = $parser->capture( array(new TokenParser\PhpShorthand, new TokenParser\EOL, new TokenParser\GroupClose ));
+			$string = $parser->capture( array(new TokenParser\EOL, new TokenParser\GroupClose ));
 			$parser->p--;
 			return new Node\Content( $this->tok.$string );
 		}
