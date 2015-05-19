@@ -753,7 +753,7 @@ I have to admit, this is a very unpractical and basic example. But it should giv
 #### Parsing a Directive
 
 
-The *directive*method has two parameters:
+The *directive* method has two parameters:
 
 * The name of the directive
 * A callback function which optionally can return an array of *tokens*.
