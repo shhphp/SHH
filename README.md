@@ -706,7 +706,7 @@ In SHH, a directive can either be preprocessed (before compilation) or parsed (a
 
 *Preprocessing* a directive gives you the change to alter the source code. *Parsing* it, makes it possible to inject a new stream of *tokens* into the current one.
 
-#### Preprocesssing a Directive
+#### Preprocessing a Directive
 
 Remember the extension we did on [string interpolation](#einterpolation)? Let's do something similar but apply it to the entire document. We have to do this before compilation and therefore will be using the *preprocessor* method.
 
