@@ -27,28 +27,10 @@ class Php extends \SHH\TokenParser
 	 */
 	public function parse(\SHH\Parser &$parser)
 	{
-		if($code = $this->capture($parser) ){
+		if($code = $parser->capture($this) ){
 			return new \SHH\Node\Element( array("<?php ", " ?>"),
 				array( new \SHH\Node\Content( $parser->format($code) ) )
 			);
-		}
-	}
-
-	/**
-	 * Create a string from the TokenParser stream
-	 *
-	 * @param 	Parser 	$parser 	a Parser instance
-	 *
-	 * @return 	string 						the final merged string
-	 */
-	protected function capture(\SHH\Parser &$parser)
-	{
-		if( $str = $parser->capture( $this ) ){
-			// if( !$parser->nextIs( new \SHH\TokenParser\EOL ) ){
-			// 	$str .= $this->tok.$this->capture( $parser );
-			// }
-			// var_dump( $parser->current() );
-			return $str;
 		}
 	}
 }
