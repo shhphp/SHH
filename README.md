@@ -418,9 +418,14 @@ For example:
 	div
 	  Hello Friend.
 	
-will compile to:
+compiles to:
 
 	<div>Hello Friend.</div>
+	
+Otherwise you also can escape the line:
+
+	div
+	  \Hello Friend.
 
 
 #### !autotag <a id="sautotag"></a>
