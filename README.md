@@ -352,7 +352,7 @@ But you are *not allowed* to nest a reference inside the same anchor `&a(*a)`
 
 ### Directives <a id="directives"></a>
 
-SHH comes with a few directives you should be aware of. They strongly influence how the input will be processed and rendered. 
+SHH comes with a few compiler directives you should be aware of. They strongly influence how the input will be processed and rendered. 
 
 Directives make the code portable. It makes sure that it compiles on every compiler the same way.
 
