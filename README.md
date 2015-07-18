@@ -356,7 +356,7 @@ SHH comes with a few compiler directives you should be aware of. They strongly i
 
 Directives make the code portable. It makes sure that it compiles on every compiler the same way.
 
-Directives are usually placed at the top of the document and must start at the beginning of the line. They begin with the character `!` followed by the directive name and can have arguments.
+Directives are usually placed at the top of the document and must start at the beginning of the line. They begin with the character `!` followed by the directive's name and can have arguments.
 
 Using two *exclamation marks* instead of just one deactivates a directive.
  
