@@ -26,7 +26,7 @@ class PhpShorthand extends \SHH\TokenParser
 	public function parse(\SHH\Parser &$parser)
 	{
 		if( $token = $parser->expect( new TokenParser\Identifier ) ){		
-			$func = trim( $parser->capture( new TokenParser\Whitespace, false, null, false, true ) ); 
+			$func = trim( $parser->capture( array(new TokenParser\Whitespace, new TokenParser\EOL), false, null, false, true ) ); 
 			return new \SHH\Node\Content("<?php echo $".$token->tok.$func."; ?>");
 		}
 	}
