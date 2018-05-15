@@ -4,7 +4,7 @@
 
 SHH (Shorthand HTML) is HTML simplified.
 
-<img src="http://fritzmoritz.ch/shh/img/deer_small.png" width="158" />
+<img src="http://apps.domizai.ch/shh/img/deer_small.png" width="158" />
 
 ## Table of Contents <a id="content"></a>
 
@@ -484,7 +484,7 @@ This would work:
 	  </div>
 
 
-<img src="http://fritzmoritz.ch/shh/img/buck_small.png" width="108"/>
+<img src="http://apps.domizai.ch/shh/img/buck_small.png" width="108"/>
 
 ## Installation <a id="installation"></a>
  
@@ -777,7 +777,7 @@ $shh->compiler->directive('myDirective'
 ```
 
 
-<img src="http://fritzmoritz.ch/shh/img/antelope_small.png" width="144"/>
+<img src="http://apps.domizai.ch/shh/img/antelope_small.png" width="144"/>
 
 ## Core Principle <a id="intention"></a>
 
