@@ -62,8 +62,6 @@ Features:
 
 It's implemented for **PHP 5.3** and is currently in **open beta** (0.9.0).
 
-> **<a href="http://apps.domizai.ch/shh/" target="_blank">Try it out here!</a>** (temporary site)
-
 ## Syntax <a id="syntax"></a>
 
 If you already know other templating languages such as Haml or Jade, then you're *almost* ready to get started.
