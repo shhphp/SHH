@@ -58,7 +58,6 @@ Features:
 * contextual error report
 * easy to learn and extend
 
--
 
 It's implemented for **PHP 5.3**.
 
